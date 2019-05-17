@@ -50,6 +50,17 @@ class Cart:
             item.quantity += int(quantity)
             item.save()
 
+    def exists(self, product):
+        try:
+            item = models.Item.objects.get(
+                cart=self.cart,
+                product=product,
+            )
+        except models.Item.DoesNotExist:
+            return False
+        else: #ItemAlreadyExists
+            return True
+
     def remove(self, product):
         try:
             item = models.Item.objects.get(
